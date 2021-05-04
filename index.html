@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+<style>
+#mychart
+{
+    width:80%;
+    height: 80%;
+    background:#fff;
+}
+
+#canvas
+{
+    width:60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border:2px solid #000;
+    padding:20px;
+}
+
+#canvas,#canvas_param
+{
+    margin:15px;
+}
+body
+{
+    background:#f3f3f3 ;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input
+{
+    background: #004d00;
+}
+
+</style>
+</head>
+<body>
+
+
+<section id = "canvas_param">
+
+<div>
+        <label for="alpha">Technology</label><br>
+        <span id="technologies"></span><br>
+        <input type="range" name="technology" id="technology" min="0" max="100" step="1" oninput="dynamic()">
+    </div><br>
+
+    <div>
+        <label for="alpha">Alpha Value</label><br>
+        <span id="alphas"></span><br>
+        <input type="range" name="alpha" id="alpha" min="0" max="10" step="1" oninput="dynamic()">
+    </div><br>
+
+    <div>
+        <label for="savings_rate">Savings Rate</label><br>
+        <span id="savings"></span><br>
+        <input type="range" name="savings_rate" id="savings_rate" min="0" max="100" step="1" oninput="dynamic()">
+    </div><br>
+
+    <div>
+        <label for="depreciation_rate">Depreciation Rate</label><br>
+        <span id="depreciation"></span><br>
+        <input type="range" name="depreciation_rate" id="depreciation_rate" min="0" max="100" step="1" oninput="dynamic()">
+    </div><br>
+
+</section>
+
+<section id="canvas">
+    <h3>Solow Model Simulator</h3>
+    <canvas id="myChart"></canvas>
+</section>
+
+<script>
+
+var alpha = document.getElementById('alpha').value;
+var technology = document.getElementById('technology').value;
+var savings_rate = document.getElementById('savings_rate').value;
+var depreciation_rate = document.getElementById('depreciation_rate').value;
+
+document.getElementById('alphas').innerHTML = alpha/10;
+document.getElementById('technologies').innerHTML = technology;
+document.getElementById('savings').innerHTML = savings_rate.concat(" %");
+document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %");
+
+ 
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var yValues = [0];
+var xValues = [0];
+var investment_yValues = [0];
+var savings_xValues = [0];
+var depreciation_yValues = [0];
+
+var st = Math.pow( (depreciation_rate/savings_rate), 1/(alpha-1));
+var max=800;
+for(var i=1;i<=max;i++)
+{
+    xValues.push(i);
+    yValues.push(technology*Math.pow(i,0.1*alpha));
+    investment_yValues.push(technology*0.01*savings_rate*Math.pow(i,0.1*alpha));
+    depreciation_yValues.push(0.01*depreciation_rate*i);
+}
+  
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: 
+    {
+        labels: xValues,
+        datasets: 
+        [
+        {
+            
+            pointRadius: 0,
+            pointBackgroundColor: "rgb(0,0,255)",
+            label: 'Output',
+            data: yValues ,
+            borderColor : '#000',
+            borderWidth: 2
+        },
+
+        {
+            pointRadius: 0,
+            pointBackgroundColor: "#f0f0f0",
+            label: 'Investment',
+            data: investment_yValues , 
+            borderColor : '#00dd00',
+            borderWidth : 2
+        },
+
+        {
+            pointRadius: 0,
+            pointBackgroundColor: "#f0f0f0",
+            label: 'Depreciation',
+            data: depreciation_yValues, 
+            borderColor : '#4d0000',
+            borderWidth : 2
+        }
+
+        ]
+    },
+
+    options: 
+    {
+        scales: 
+        {
+            y: 
+            {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+function dynamic()
+ {
+    
+var alpha = document.getElementById('alpha').value;
+var technology = document.getElementById('technology').value;
+var savings_rate = document.getElementById('savings_rate').value;
+var depreciation_rate = document.getElementById('depreciation_rate').value;
+
+document.getElementById('alphas').innerHTML = alpha/10;
+document.getElementById('technologies').innerHTML = technology;
+document.getElementById('savings').innerHTML = savings_rate.concat(" %");
+document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %");
+
+    yValues = [0];
+    xValues = [0];
+    investment_yValues = [0];
+    savings_xValues = [0];
+    depreciation_yValues = [0];
+   var steady_state = Math.pow( (depreciation_rate/savings_rate), 1/(alpha-1));
+    var maximum = 800;
+for(var i=1;i<=maximum;i++)
+{
+    xValues.push(i);
+    yValues.push(technology*Math.pow(i,0.1*alpha));
+    investment_yValues.push(technology*0.01*savings_rate*Math.pow(i,0.1*alpha));
+    depreciation_yValues.push(0.01*depreciation_rate*i);
+}
+
+  myChart.data.datasets[0].data = yValues; 
+  myChart.data.datasets[1].data = investment_yValues;
+  myChart.data.datasets[2].data = depreciation_yValues;
+  myChart.update();
+
+}
+
+</script>
+</body>
+</html>

@@ -5,12 +5,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 <style>
+*
+{
+    transition: 1.5s;
+}
 #mychart
 {
     width:80%;
     height: 80%;
-    
+    background: #fff;
 }
 
 #canvas
@@ -32,6 +38,28 @@
     margin:15px;
 }
 
+#download
+{
+    text-decoration: none;
+    color:#19407a;
+    border:2px solid #19407a;
+    padding:4px;
+    border-radius:3px;
+    font-weight: bold;
+}
+
+#download:hover
+{
+    text-decoration: none;
+    color:#fff;
+    border:#19407a;
+    background: #19407a;
+    padding:4px;
+    border:2px solid #19407a;
+    border-radius:3px;
+    font-weight: bold;
+}
+
 #canvas_param
 {
     background: none;
@@ -42,9 +70,7 @@ body
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-image: url('money.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: #fff;
 }
 
 </style>
@@ -85,7 +111,9 @@ body
 <section id="canvas">
     <h3>Solow Model Simulator</h3>
     <canvas id="myChart"></canvas>
+    <a id="download" href="" download="chart.jpg" onclick="saveAsImage()">Save as image</a>
 </section>
+
 
 <script>
 
@@ -168,6 +196,17 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+myChart.render();
+function saveAsImage()
+{
+  /*Get image of canvas element*/
+  var url_base64jp = document.getElementById("myChart").toDataURL("image/jpg");
+  /*get download button (tag: <a></a>) */
+  var a =  document.getElementById("download");
+  /*insert chart image url to download button (tag: <a></a>) */
+  a.href = url_base64jp;
+}
 
 function dynamic()
  {

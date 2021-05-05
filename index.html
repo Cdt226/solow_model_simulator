@@ -14,6 +14,11 @@
     transition: 1s;
 }
 
+/*
+**************************************************************************************************************************************************************
+***************************MISE EN FORME CANVAS ET ELEMENTS*********************************MISE EN FORME CANVAS ET ELEMENTS**********************************
+**************************************************************************************************************************************************************
+*/
 #mychart
 {
     width:80%;
@@ -29,9 +34,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border:2px solid #000;
+    border:1px solid #19407a;
     padding:20px;
-    border-radius:6px;
+    border-radius:8px;
     background: #fff;
 }
 
@@ -40,32 +45,34 @@
     margin:15px;
 }
 
+label,span
+{
+    color:#19407a;
+}
 #download
 {
     text-decoration: none;
-    color:#004d00;
-    border:2px solid #004d00;
+    color:#19407a;
+    border:1px solid #19407a;
     padding:4px;
-    border-radius:3px;
-    font-weight: bold;
+    border-radius:5px;
 }
 
 #download:hover
 {
     text-decoration: none;
     color:#fff;
-    background: #004d00;
+    background: #19407a;
     padding:4px;
-    border:2px solid #004d00;
-    border-radius:3px;
-    font-weight: bold;
+    border:1px solid #19407a;
+    border-radius:5px;
 }
 
 #canvas_param
 {
     background: none;
 }
-body
+#graph_elements
 {
     display:flex;
     flex-direction: row;
@@ -74,11 +81,190 @@ body
     background: #fff;
 }
 
+
+/*
+***************************************************************************************************************************************************************
+****************************************MISE EN FORME HEADER FOOTER****************************MISE EN FORME HEADER FOOTER*************************************
+***************************************************************************************************************************************************************
+*/
+
+
+
+/*
+---------------------------------------------HEADER---------------------HEADER-------------------------HEADER--------------------------------------------------
+*/
+body .body-header{
+    background:#fff;
+    border-radius:2%;
+    border-bottom:3px solid #19407a;
+    top:0;
+    margin:0;
+    width:100%;
+    height: 75px;
+    opacity:0.9;
+    margin-bottom: 20px;
+    z-index: 5;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 8px;}
+    
+
+.logo{margin-left:30px;}
+
+.nav-list{
+    list-style: none;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;}
+
+.nav-list div{
+    margin-left:10px;
+    margin-right:30px;}
+    
+    .add
+    {
+    border:1px solid #19407a;
+    border-radius:3px;
+    padding:6px 7px;
+    color:#19407a;
+    text-decoration:none;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size:11;
+    }
+    
+    .lien{
+    float: right;
+    color:#19407a;
+    text-decoration:none;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size:11;
+    }
+
+span .lien{
+    border:1px solid #19407a;
+    border-radius:3px;
+    padding:7px 10px;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration:none;
+    color:#19407a;
+}
+
+span .lien:hover, .add:hover {
+    color:#fff;
+    border-radius:3px;
+    background: #19407a;
+}
+
+span .lien:active , td .link:active{
+    color:#19407a;
+    background: #fff;
+    border-radius:5px;
+}
+
+.log{
+    font-family: lucida handwriting;
+    font-size:40px;
+    color:#19407a;
+    text-shadow: 3px 3px 4px orange, 4px 4px 3px #fff, 5px 5px 2px #000;
+}
+
+.log sub,.log sup{
+    font-family:inherit;
+    font-size:11px;
+}
+
+
+/*
+--------------------------------FOOTER------------------------------FOOTER----------------------------------FOOTER--------------------------------------------
+*/
+
+
+
+
+body footer[class="body-footer"]
+{
+    width: 100%;
+    background: #e0e0e0;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: space-between ;
+    flex-wrap: wrap;
+    color:black;
+    border-top: 3px solid #19407a;
+    text-align:center;
+}
+
+
+div[class="copyright"]{
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 20px;}
+
+div[class="copyright"] span{
+    padding:3px 5px;
+    color:black;
+    border-radius:5px;
+    border:2px solid black;
+    font-size: 13px;
+}
+
+body footer[class="body-footer"] ul{list-style: none;}
+body footer[class="body-footer"] li{
+    color:black;
+    font-size:13px;
+}
+body footer[class="body-footer"] a{text-decoration:none;color:orange;}
+body footer[class="body-footer"] p{
+    color:black;
+    font-size: 13px;}
+} 
+
+/*
+**********************FIN CSS********************FIN CSS**********************FIN CSS**********************FIN CSS************************FIN CSS**************
+*/
+
 </style>
 </head>
 <body>
 
+<!--
+    ----------HEADER HTML----------------HEADER HTML-------------HEADER HTML-------------HEADER HTML---------------HEADER HTML---------------HEADER HTML-----
+-->
+<header class="body-header">
+        <div class="logo">
+            <span class="log">
+                S<sup>  olow Model</sup>S<sub>imulator</sub>
+            </span>
+        </div>
 
+        <nav>
+            <div class="nav-list">
+            
+                
+                <div class="menu-recette">
+                    <span class="lien"><a href="#" class="lien">Nous soutenir</a></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+<!--
+    ----------------SECTION CANVAS-------------------SECTION CAVANS------------------SECTION CANVAS------------------SECTION CANVAS-----------SECTION CANVAS--
+-->
+<section id="graph_elements">
 <section id = "canvas_param">
     
     <div><h2>Parameters</h2></div>
@@ -115,28 +301,35 @@ body
     <a id="download" href="" download="chart.jpg" onclick="saveAsImage()">Save as image</a>
 </section>
 
+</section>
+
 
 <script>
 
+/*
+-------------------------DECLARATION DE VARIABLES------------------------DECLARATIONS DE VARIABLES--------------------------DECLARATION DE VARIABLES----------
+*/
 var alpha = document.getElementById('alpha').value;
 var technology = document.getElementById('technology').value;
 var savings_rate = document.getElementById('savings_rate').value;
 var depreciation_rate = document.getElementById('depreciation_rate').value;
 var count = 0;
+
 document.getElementById('alphas').innerHTML = alpha/10;
 document.getElementById('technologies').innerHTML = technology;
 document.getElementById('savings').innerHTML = savings_rate.concat(" %");
 document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %");
 
- 
-var ctx = document.getElementById('myChart').getContext('2d');
 
+/*
+                                                            -------VARIABLES GRAPHIQUES-------
+*/
+var ctx = document.getElementById('myChart').getContext('2d');
 var yValues = [0];
 var xValues = [0];
 var investment_yValues = [0];
 var savings_xValues = [0];
 var depreciation_yValues = [0];
-
 var st = Math.pow( (depreciation_rate/(savings_rate*technology)), 1/(alpha-1));
 var max=2000;
 for(var i=1;i<=max;i++)
@@ -147,7 +340,9 @@ for(var i=1;i<=max;i++)
     depreciation_yValues.push(0.01*depreciation_rate*i);
 }
   
-
+/*
+--------------------GRAPHIQUE--------------------GRAPHIQUE------------------------GRAPHIQUE-------------------GRAPHIQUE---------------------------------------
+*/
 var myChart = new Chart(ctx, {
     type: 'line',
     data: 
@@ -162,7 +357,7 @@ var myChart = new Chart(ctx, {
             label: 'Output',
             backgroundColor: 'rgba(100,100,100,0.8)',
             data: yValues ,
-            borderColor : '#000',
+            borderColor : '#19407a',
             borderWidth: 2
         },
 
@@ -200,7 +395,9 @@ var myChart = new Chart(ctx, {
     }
 });
 
-myChart.render();
+/*
+--------------FONCTION DE TELECHARGEMENT IMAGE----------------FONCTION DE TELECHARGEMENT IMAGE------------------FONCTION DE TELECHARGEMENT IMAGE--------------
+*/
 
 function saveAsImage()
 {
@@ -210,6 +407,9 @@ function saveAsImage()
   a.href = url_base64jp;
 }
 
+/*
+---------------------GESTIONNAIRE DE COURBE---------------------GESTIONNAIRE DE COURBE---------------------GESTIONNAIRE DE COURBE------------------------------
+*/
 function dynamic()
  {
     count+=1;
@@ -248,6 +448,30 @@ for(var i=1;i<=maximum;i++)
 
 }
 
+/*
+--------------FIN JS-----------FIN JS-----------FIN JS------------FIN JS------------FIN JS------------FIN JS--------------FIN JS-------------FIN JS------------
+*/
+
 </script>
+
+<!--
+    --------------------FOOTER HTML --------------------FOOTER HTML-------------------FOOTER HTML -----------------------FOOTER HTML -------------------------
+-->
+<footer class="body-footer">
+        <section class="a propos-section">      
+            <div class="nous">
+                <span>Developpé par Cdt 226</span>
+                <ul>
+                    <li>192 Lotissement Mostakbal, Sidi Maarouf, Casablanca, Maroc</li>
+                    <li>Téléphone: +212 6 44 09 64 39</li>
+                    <li>Mail: <a href="mailto:zoungranawendmitabricewbz@gmail.com">zoungranawendmitabricewbz@gmail.com</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <div class="copyright">
+            <span>Tous droits réservés © 2020 - Cdt226</span>
+        </div>
+    </footer>
 </body>
 </html>

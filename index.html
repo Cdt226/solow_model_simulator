@@ -6,12 +6,14 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
 *
 {
-    transition: 1.5s;
+    transition: 1s;
 }
+
 #mychart
 {
     width:80%;
@@ -19,7 +21,7 @@
     background: #fff;
 }
 
-#canvas
+#canvas 
 {
     width:60%;
     height: 60%;
@@ -41,8 +43,8 @@
 #download
 {
     text-decoration: none;
-    color:#19407a;
-    border:2px solid #19407a;
+    color:#004d00;
+    border:2px solid #004d00;
     padding:4px;
     border-radius:3px;
     font-weight: bold;
@@ -52,10 +54,9 @@
 {
     text-decoration: none;
     color:#fff;
-    border:#19407a;
-    background: #19407a;
+    background: #004d00;
     padding:4px;
-    border:2px solid #19407a;
+    border:2px solid #004d00;
     border-radius:3px;
     font-weight: bold;
 }
@@ -85,7 +86,7 @@ body
     <div>
         <label for="alpha">Technology</label><br>
         <span id="technologies"></span><br>
-        <input type="range" name="technology" id="technology" min="0" max="100" step="1" oninput="dynamic()">
+        <input type="range" name="technology" id="technology" min="0" max="50" step="1" oninput="dynamic()">
     </div><br>
 
     <div>
@@ -97,13 +98,13 @@ body
     <div>
         <label for="savings_rate">Savings Rate</label><br>
         <span id="savings"></span><br>
-        <input type="range" name="savings_rate" id="savings_rate" min="0" max="100" step="1" oninput="dynamic()">
+        <input type="range" name="savings_rate" id="savings_rate" min="10" max="50" step="1" oninput="dynamic()">
     </div><br>
 
     <div>
         <label for="depreciation_rate">Depreciation Rate</label><br>
         <span id="depreciation"></span><br>
-        <input type="range" name="depreciation_rate" id="depreciation_rate" min="0" max="100" step="1" oninput="dynamic()">
+        <input type="range" name="depreciation_rate" id="depreciation_rate" min="10" max="50" step="1" oninput="dynamic()">
     </div><br>
 
 </section>
@@ -121,7 +122,7 @@ var alpha = document.getElementById('alpha').value;
 var technology = document.getElementById('technology').value;
 var savings_rate = document.getElementById('savings_rate').value;
 var depreciation_rate = document.getElementById('depreciation_rate').value;
-
+var count = 0;
 document.getElementById('alphas').innerHTML = alpha/10;
 document.getElementById('technologies').innerHTML = technology;
 document.getElementById('savings').innerHTML = savings_rate.concat(" %");
@@ -136,8 +137,8 @@ var investment_yValues = [0];
 var savings_xValues = [0];
 var depreciation_yValues = [0];
 
-var st = Math.pow( (depreciation_rate/savings_rate), 1/(alpha-1));
-var max=800;
+var st = Math.pow( (depreciation_rate/(savings_rate*technology)), 1/(alpha-1));
+var max=2000;
 for(var i=1;i<=max;i++)
 {
     xValues.push(i);
@@ -159,6 +160,7 @@ var myChart = new Chart(ctx, {
             pointRadius: 0,
             pointBackgroundColor: "rgb(0,0,255)",
             label: 'Output',
+            backgroundColor: 'rgba(100,100,100,0.8)',
             data: yValues ,
             borderColor : '#000',
             borderWidth: 2
@@ -187,30 +189,31 @@ var myChart = new Chart(ctx, {
 
     options: 
     {
-        scales: 
-        {
-            y: 
-            {
-                beginAtZero: true
+        scales: {
+            x: {
+                display: true
+            },
+            y: {
+                display: true
             }
         }
     }
 });
 
 myChart.render();
+
 function saveAsImage()
 {
-  /*Get image of canvas element*/
+    /*Fonction importée et réadaptée au cadre*/
   var url_base64jp = document.getElementById("myChart").toDataURL("image/jpg");
-  /*get download button (tag: <a></a>) */
   var a =  document.getElementById("download");
-  /*insert chart image url to download button (tag: <a></a>) */
   a.href = url_base64jp;
 }
 
 function dynamic()
  {
-    
+    count+=1;
+    /*Fonction créée de toute pièce*/
 var alpha = document.getElementById('alpha').value;
 var technology = document.getElementById('technology').value;
 var savings_rate = document.getElementById('savings_rate').value;
@@ -226,8 +229,8 @@ document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %
     investment_yValues = [0];
     savings_xValues = [0];
     depreciation_yValues = [0];
-   var steady_state = Math.pow( (depreciation_rate/savings_rate), 1/(alpha-1));
-    var maximum = 800;
+    //var steady_state = Math.pow( (depreciation_rate/savings_rate), 1/(alpha-1));
+    var maximum = max;//= 2*Math.pow((depreciation_rate/(savings_rate*technology)), 1/(alpha-1));
 for(var i=1;i<=maximum;i++)
 {
     xValues.push(i);
@@ -236,6 +239,8 @@ for(var i=1;i<=maximum;i++)
     depreciation_yValues.push(0.01*depreciation_rate*i);
 }
 
+    
+    myChart.data.labels = xValues;
   myChart.data.datasets[0].data = yValues; 
   myChart.data.datasets[1].data = investment_yValues;
   myChart.data.datasets[2].data = depreciation_yValues;

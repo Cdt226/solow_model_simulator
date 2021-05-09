@@ -270,9 +270,15 @@ body footer[class="body-footer"] p{
     <div><h2>Parameters</h2></div>
 
     <div>
+        <label for="population_growth">Population Growth</label><br>
+        <span id="population_growth"></span><br>
+        <input type="range" name="population_growth" id="pop_growth" min="0" max="15" step="0.5" oninput="dynamic()">
+    </div><br>
+
+    <div>
         <label for="alpha">Technology</label><br>
         <span id="technologies"></span><br>
-        <input type="range" name="technology" id="technology" min="0" max="50" step="1" oninput="dynamic()">
+        <input type="range" name="technology" id="technology" min="1" max="30" step="0.5" oninput="dynamic()">
     </div><br>
 
     <div>
@@ -284,13 +290,13 @@ body footer[class="body-footer"] p{
     <div>
         <label for="savings_rate">Savings Rate</label><br>
         <span id="savings"></span><br>
-        <input type="range" name="savings_rate" id="savings_rate" min="10" max="50" step="1" oninput="dynamic()">
+        <input type="range" name="savings_rate" id="savings_rate" min="10" max="40" step="0.1" oninput="dynamic()">
     </div><br>
 
     <div>
         <label for="depreciation_rate">Depreciation Rate</label><br>
         <span id="depreciation"></span><br>
-        <input type="range" name="depreciation_rate" id="depreciation_rate" min="10" max="50" step="1" oninput="dynamic()">
+        <input type="range" name="depreciation_rate" id="depreciation_rate" min="5" max="20" step="0.1" oninput="dynamic()">
     </div><br>
 
 </section>
@@ -310,12 +316,14 @@ body footer[class="body-footer"] p{
 -------------------------DECLARATION DE VARIABLES------------------------DECLARATIONS DE VARIABLES--------------------------DECLARATION DE VARIABLES----------
 */
 var alpha = document.getElementById('alpha').value;
+var pop_growth = document.getElementById('pop_growth').value;
 var technology = document.getElementById('technology').value;
 var savings_rate = document.getElementById('savings_rate').value;
 var depreciation_rate = document.getElementById('depreciation_rate').value;
 var count = 0;
 
 document.getElementById('alphas').innerHTML = alpha/10;
+document.getElementById('population_growth').innerHTML = pop_growth.concat(" %");
 document.getElementById('technologies').innerHTML = technology;
 document.getElementById('savings').innerHTML = savings_rate.concat(" %");
 document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %");
@@ -337,7 +345,7 @@ for(var i=1;i<=max;i++)
     xValues.push(i);
     yValues.push(technology*Math.pow(i,0.1*alpha));
     investment_yValues.push(technology*0.01*savings_rate*Math.pow(i,0.1*alpha));
-    depreciation_yValues.push(0.01*depreciation_rate*i);
+    depreciation_yValues.push((0.01*depreciation_rate+0.01*pop_growth)*i);
 }
   
 /*
@@ -415,11 +423,13 @@ function dynamic()
     count+=1;
     /*Fonction créée de toute pièce*/
 var alpha = document.getElementById('alpha').value;
+var pop_growth = document.getElementById('pop_growth').value;
 var technology = document.getElementById('technology').value;
 var savings_rate = document.getElementById('savings_rate').value;
 var depreciation_rate = document.getElementById('depreciation_rate').value;
 
 document.getElementById('alphas').innerHTML = alpha/10;
+document.getElementById('population_growth').innerHTML = pop_growth.concat(" %");
 document.getElementById('technologies').innerHTML = technology;
 document.getElementById('savings').innerHTML = savings_rate.concat(" %");
 document.getElementById('depreciation').innerHTML = depreciation_rate.concat(" %");
@@ -436,7 +446,7 @@ for(var i=1;i<=maximum;i++)
     xValues.push(i);
     yValues.push(technology*Math.pow(i,0.1*alpha));
     investment_yValues.push(technology*0.01*savings_rate*Math.pow(i,0.1*alpha));
-    depreciation_yValues.push(0.01*depreciation_rate*i);
+    depreciation_yValues.push((0.01*depreciation_rate+0.01*pop_growth)*i);
 }
 
     
